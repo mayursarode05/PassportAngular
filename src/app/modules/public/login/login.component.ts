@@ -35,26 +35,31 @@ export class LoginComponent implements OnInit{
   handleSubmit(): void {
     if (this.loginForm.valid) {
       this.service.GetAllUser().pipe(
-        map(data=>{
-          this.user = data.find(
-            (x) => x.loginId === this.loginForm.value.loginId &&
-                   x.password === this.loginForm.value.password
-        )})); 
-        
-        
-      
-        if(typeof window !== 'undefined' && window.localStorage){
-          localStorage.setItem('loggedUser',JSON.stringify(this.user));
-          //this.service.isLoggedIn$.next(true);
-        }
-        if (this.user !== undefined) {
+        map((data: any) => {  
+          // Accessing the users array within the data object
+          const usersArray = data.users;
+  
+          // Find the user that matches the loginId and password
+          this.user = usersArray.find(
+            (x: any) => x.loginId === this.loginForm.value.loginId &&
+                        x.password === this.loginForm.value.password
+          );
+          
+          return this.user;
+        })
+      ).subscribe((user) => {
+        if (user !== undefined) {
+          if (typeof window !== 'undefined' && window.localStorage) {
+            localStorage.setItem('loggedUser', JSON.stringify(user));
+          }
+  
           Swal.fire({
             title: "Login Successful",
             text: "Excellent",
             icon: "success"
           }).then((res) => {
             if (res.isConfirmed) {
-              if (this.user?.role === Role.User) {
+              if (user.role === Role.User) {
                 this.router.navigate(['user']);
               } else {
                 this.router.navigate(['admin']);
@@ -68,11 +73,13 @@ export class LoginComponent implements OnInit{
             icon: "error"
           });
         }
-      ;
+      });
     } else {
       this.loginForm.markAllAsTouched();
     }
   }
+  
+  
   
 
   // handleSubmit(): void {
