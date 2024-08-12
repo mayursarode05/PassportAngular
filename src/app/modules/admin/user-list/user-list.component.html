@@ -1,0 +1,80 @@
+<h2 class="mt-2 text-success">User List</h2>
+<table class="table table-hover mt-5">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Date of Birth</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+            <th>LoginId</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of userList">
+            <td>{{data.fullName +" " + data.surname}}</td>
+            <td>{{data.dateOfBirth}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.mobileNumber}}</td>
+            <td>{{data.loginId}}</td>
+            <td>{{data.role}}</td>
+            <td>
+                <button class="btn btn-warning me-2" (click)="HandleEdit(data.id)"><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-danger" (click)="HandleDelete(data.id)"><i class="bi bi-trash"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="modal" tabindex="-1" [ngClass]="{'show': isEditModalVisible}" [ngStyle]="{'display': isEditModalVisible ? 'block' : 'none'}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit User</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="isEditModalVisible = false"></button>
+            </div>
+            <div class="modal-body">
+                <form *ngIf="selectedUser">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="fullName" [(ngModel)]="selectedUser.fullName" name="fullName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="surname" class="form-label">Surname</label>
+                                <input type="text" class="form-control" id="surname" [(ngModel)]="selectedUser.surname" name="surname">
+                            </div>
+                            <div class="mb-3">
+                                <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" id="dateOfBirth" [(ngModel)]="selectedUser.dateOfBirth" name="dateOfBirth">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" [(ngModel)]="selectedUser.email" name="email">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <label for="mobileNumber" class="form-label">Mobile Number</label>
+                                <input type="text" class="form-control" id="mobileNumber" [(ngModel)]="selectedUser.mobileNumber" name="mobileNumber">
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginId" class="form-label">Login ID</label>
+                                <input type="text" class="form-control" id="loginId" [(ngModel)]="selectedUser.loginId" name="loginId" ngModal disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Role</label>
+                                <input type="text" class="form-control" id="role" [(ngModel)]="selectedUser.role" name="role" ngModal disabled>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="isEditModalVisible = false">Close</button>
+                <button type="button" class="btn btn-primary" (click)="HandleSave()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

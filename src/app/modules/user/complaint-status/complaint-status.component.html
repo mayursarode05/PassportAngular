@@ -1,0 +1,23 @@
+<h2 class="mt-2 text-success">Complaint List</h2>
+<table class="table table-hover mt-5">
+    <thead>
+      <tr>
+        <th>Sr.No</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Complaint</th>
+        <th>Complaint Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of complaintList; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.feedback }}</td>
+        <td>{{ data.feedbackStatus }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
