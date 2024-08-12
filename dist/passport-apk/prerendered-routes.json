@@ -1,0 +1,23 @@
+{
+  "routes": [
+    "/",
+    "/admin",
+    "/admin/new-pass-list",
+    "/admin/re-newpass-list",
+    "/admin/user-complaints",
+    "/admin/user-feedback",
+    "/admin/user-list",
+    "/login",
+    "/signup",
+    "/user",
+    "/user/back",
+    "/user/feedback",
+    "/user/newpassport",
+    "/user/payment",
+    "/user/profile",
+    "/user/profile/complaint-status",
+    "/user/renewalpassport",
+    "/user/track-status",
+    "/user/view-status"
+  ]
+}
